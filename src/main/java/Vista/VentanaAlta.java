@@ -4,27 +4,30 @@
  */
 package Vista;
 
-
 import Controlador.Concesionario;
 import Modelo.Vehiculo;
+import javax.swing.*;
+import java.awt.*;
+
 /**
  *
  * @author usuario
  */
 public class VentanaAlta extends javax.swing.JDialog {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaAlta.class.getName());
 
-    private Vehiculo vehiculo;
-    private Concesionario veh;
-    
+    private static Concesionario concesionario;
+//    private Vehiculo vehiculo;
+
     /**
      * Creates new form VentanaAlta
      */
-    public VentanaAlta(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public VentanaAlta(Concesionario concesionario) {
+        this.concesionario = concesionario;
         initComponents();
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -136,16 +139,49 @@ public class VentanaAlta extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonOKActionPerformed
-        // TODO add your handling code here:
-        String MatVh = MatriculaWr.getText();
-        
-        if(veh.insertarVehiculo(vehiculo)){
-            
+        try {
+            // Validaciones con excepciones
+            String matricula = MatriculaWr.getText().trim();
+            if (matricula.isEmpty()) {
+                throw new Exception("La matrícula no puede estar vacía.");
+            }
+
+            double precio = Double.parseDouble(PrecioWr.getText().trim());
+
+            Vehiculo v = new Vehiculo(
+                    matricula,
+                    MarcaWr.getText().trim(),
+                    ModeloWr.getText().trim(),
+                    precio,
+                    TipoWr.getText().trim()
+            );
+
+            // Muestra error si matrícula duplicada
+            if (!concesionario.insertarVehiculo(v)) {
+                JOptionPane.showMessageDialog(this,
+                        "Ya existe un vehículo con esa matrícula.",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "Vehículo añadido correctamente.",
+                        "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                dispose(); // cierra el diálogo
+            }
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this,
+                    "El precio debe ser un número.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this,
+                    ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
+
     }//GEN-LAST:event_ButtonOKActionPerformed
 
     private void ButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCancelActionPerformed
         // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_ButtonCancelActionPerformed
 
     /**
@@ -173,7 +209,7 @@ public class VentanaAlta extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                VentanaAlta dialog = new VentanaAlta(new javax.swing.JFrame(), true);
+                VentanaAlta dialog = new VentanaAlta(concesionario);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
