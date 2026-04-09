@@ -6,47 +6,53 @@ package Persistencia;
 
 import Modelo.Vehiculo;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import static java.lang.System.in;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author usuario
  */
 public class FicheroVehiculos {
+
+    private static ArrayList<Vehiculo> vehiculos = new ArrayList<>();
+    private String rutaArchivo;
     
-    public static void cargar(ArrayList<Vehiculo> vehiculos) throws FileNotFoundException{
-        
-        String matriculaVh=null;
+    public static void cargar(ArrayList<Vehiculo> vehiculos) throws FileNotFoundException {
+
+        String matriculaVh = null;
         String marcaVh = null;
         String modeloVh = null;
         double priceVh = 0.0;
         String tipoVh = null;
-        
+
         FileReader inputStream = null;
         BufferedReader in = null;
-        
-        try{
+
+        try {
             inputStream = new FileReader("Vehiculos.txt");
             in = new BufferedReader(inputStream);
-            
-            while ((matriculaVh = in.readLine()) != null){
-                
-                String datos[] = matriculaVh.split(";");
-                
-//                for (int i = 0; i<datos.length; i++){
-//                    String finalDatos[] = datos[i].split(":");
-//                    if (finalDatos[0].equals())
-//                }
+            String linea;
+
+            while ((linea = in.readLine()) != null) {
+                String[] datos = linea.split(";");
+                String matricula = datos[0];
+                String marca = datos[1];
+                String modelo = datos[2];
+                double precio = Double.parseDouble(datos[3]);
+                String tipo = datos[4];
+                vehiculos.add(new Vehiculo(matricula, marca, modelo, precio, tipo)); // ← DENTRO del while
             }
-            Vehiculo v = new Vehiculo(matriculaVh,marcaVh,modeloVh,priceVh,tipoVh);
-            FicheroVehiculos.vehiculos.add(v);
-        
-        
-    }catch (java.io.IOException ex) {
+//            Vehiculo v = new Vehiculo(matriculaVh, marcaVh, modeloVh, priceVh, tipoVh);
+//            FicheroVehiculos.vehiculos.add(v);
+
+        } catch (java.io.IOException ex) {
             System.out.println(ex);
             System.out.println("No se puede acceder al archivo.");
         } finally {
@@ -59,28 +65,15 @@ public class FicheroVehiculos {
             }
         }
     }
-    
-    private static ArrayList<Vehiculo> vehiculos = new ArrayList<>();
-        private String rutaArchivo;
 
-    /**
-     * Get the value of rutaArchivo
-     *
-     * @return the value of rutaArchivo
-     */
-    public String getRutaArchivo() {
-        return rutaArchivo;
+    public static void guardar(List<Vehiculo> vehiculos) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("Vehiculos.txt"))) {
+            for (Vehiculo v : vehiculos) {
+                bw.write(v.toString());
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Error al guardar: " + e.getMessage());
+        }
     }
-
-    /**
-     * Set the value of rutaArchivo
-     *
-     * @param rutaArchivo new value of rutaArchivo
-     */
-    public void setRutaArchivo(String rutaArchivo) {
-        this.rutaArchivo = rutaArchivo;
-    }
-
-
-    
 }
