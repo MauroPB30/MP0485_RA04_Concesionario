@@ -6,6 +6,7 @@ package Main;
 import java.util.Scanner;
 import Controlador.Concesionario;
 import Modelo.Vehiculo;
+import Vista.VentanaAlta;
 import Vista.VentanaPrincipal;
 import java.util.ArrayList;
 
@@ -24,6 +25,11 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         
         Concesionario concesionario = new Concesionario();
+        
+        VentanaAlta vsAlta = new VentanaAlta(concesionario);
+        
+        vsAlta.setVisible(true);
+        
         Vehiculo v = null;
         String matricula = null;
 //        Shop shop = new Shop();
@@ -36,15 +42,10 @@ public class Main {
             System.out.println("\n===========================");
             System.out.println("Menu principal miTienda.com");
             System.out.println("===========================");
-            System.out.println("1) Contar caja");
-            System.out.println("2) Añadir producto");
-            System.out.println("3) Añadir stock");
-            System.out.println("4) Marcar producto proxima caducidad");
-            System.out.println("5) Ver inventario");
-            System.out.println("6) Venta");
-            System.out.println("7) Ver ventas");
-            System.out.println("8) Ver total de ventas");
-            System.out.println("9) Eliminar producto del inventario");
+            System.out.println("1) Añadir Vehiculo");
+            System.out.println("2) Eliminar Vehiculo");
+            System.out.println("3) Buscar Vehiculo");
+            System.out.println("4) Lista Vehiculo");
             System.out.println("10) Salir programa");
             System.out.print("Seleccione una opcion: ");
 
