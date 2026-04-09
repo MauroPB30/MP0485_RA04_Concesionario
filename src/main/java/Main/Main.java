@@ -6,6 +6,7 @@ package Main;
 import java.util.Scanner;
 import Controlador.Concesionario;
 import Modelo.Vehiculo;
+import Vista.VentanaPrincipal;
 import java.util.ArrayList;
 
 /**
@@ -18,6 +19,8 @@ public class Main {
   
         
     public static void main(String[] args) {
+            java.awt.EventQueue.invokeLater(() -> new VentanaPrincipal().setVisible(true));
+
         Scanner sc = new Scanner(System.in);
         
         Concesionario concesionario = new Concesionario();
@@ -59,7 +62,7 @@ public class Main {
                     concesionario.buscarVehiculo(matricula);
                     break;
                 case 4:
-                    concesionario.listarVehiculos(vehiculos);
+                    concesionario.listarVehiculos();
                     break;
                 case 10:
                     exit = true;
