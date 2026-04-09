@@ -8,6 +8,7 @@ import Controlador.Concesionario;
 import Modelo.Vehiculo;
 import javax.swing.*;
 import java.awt.*;
+import Persistencia.FicheroVehiculos;
 
 /**
  *
@@ -27,7 +28,6 @@ public class VentanaAlta extends javax.swing.JDialog {
         this.concesionario = concesionario;
         initComponents();
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -178,7 +178,7 @@ public class VentanaAlta extends javax.swing.JDialog {
         }
 
     }//GEN-LAST:event_ButtonOKActionPerformed
-
+    
     private void ButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCancelActionPerformed
         // TODO add your handling code here:
         dispose();
