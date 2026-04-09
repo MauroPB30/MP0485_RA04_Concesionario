@@ -9,7 +9,7 @@ package Modelo;
  * @author usuario
  */
 public class Vehiculo {
-    
+
     private String matricula;
     private String marca;
     private String modelo;
@@ -28,10 +28,26 @@ public class Vehiculo {
         return matricula;
     }
 
-    @Override
-    public String toString() {
-        return  matricula + ";" + marca + ";" + modelo + ";" + precio + ";" + tipo + ';';
+    public String getMarca() {
+        return marca;
+    }
+
+    public String getModelo() {
+        return modelo;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public String getTipo() {
+        return tipo;
     }
     
-    
+
+    @Override
+    public String toString() {
+        return matricula + ";" + marca + ";" + modelo + ";" + precio + ";" + tipo + ';';
+    }
+
 }
