@@ -4,18 +4,23 @@
  */
 package Vista;
 
+import Controlador.Concesionario;
+import javax.swing.*;
+
 /**
  *
  * @author usuario
  */
 public class VentanaPrincipal extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName());
+    private Concesionario concesionario;
 
     /**
      * Creates new form VentanaPri
      */
     public VentanaPrincipal() {
+        this.concesionario = new Concesionario();
         initComponents();
     }
 
@@ -43,10 +48,25 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
 
         searchVh.setText("Ventana Busca");
+        searchVh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchVhActionPerformed(evt);
+            }
+        });
 
         deletVh.setText("Ventana Elimina");
+        deletVh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deletVhActionPerformed(evt);
+            }
+        });
 
         viewVh.setText("Ventana Lista");
+        viewVh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewVhActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -80,8 +100,26 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void addVhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addVhActionPerformed
         // TODO add your handling code here:
-        
+        new VentanaAlta(concesionario).setVisible(true);
+
     }//GEN-LAST:event_addVhActionPerformed
+
+    private void deletVhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletVhActionPerformed
+        // TODO add your handling code here:
+        new VentanaElimina(this, rootPaneCheckingEnabled).setVisible(true);
+
+    }//GEN-LAST:event_deletVhActionPerformed
+
+    private void searchVhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchVhActionPerformed
+        // TODO add your handling code here:
+        new VentanaBusca(this, rootPaneCheckingEnabled).setVisible(true);
+
+    }//GEN-LAST:event_searchVhActionPerformed
+
+    private void viewVhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewVhActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_viewVhActionPerformed
 
     /**
      * @param args the command line arguments
