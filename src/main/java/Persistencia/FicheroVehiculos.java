@@ -23,7 +23,7 @@ public class FicheroVehiculos {
 
     private static ArrayList<Vehiculo> vehiculos = new ArrayList<>();
     private String rutaArchivo;
-    
+
     public static void cargar(ArrayList<Vehiculo> vehiculos) throws FileNotFoundException {
 
         String matriculaVh = null;
@@ -36,7 +36,7 @@ public class FicheroVehiculos {
         BufferedReader in = null;
 
         try {
-            inputStream = new FileReader("Vehiculos.txt");
+            inputStream = new FileReader("C:\\Users\\usuario\\Documents\\NetBeansProjects\\Test_Concesionario\\Data\\Vehiculos.txt");
             in = new BufferedReader(inputStream);
             String linea;
 
@@ -67,13 +67,16 @@ public class FicheroVehiculos {
     }
 
     public static void guardar(List<Vehiculo> vehiculos) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("Vehiculos.txt"))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("C:\\Users\\usuario\\Documents\\NetBeansProjects\\Test_Concesionario\\Data\\Vehiculos.txt"))) {
             for (Vehiculo v : vehiculos) {
                 bw.write(v.toString());
                 bw.newLine();
+
             }
+            bw.flush(); // Fuerza la escritura de los datos pendientes
+            System.out.println("Archivo escrito y cerrado correctamente.");
         } catch (IOException e) {
-            System.out.println("Error al guardar: " + e.getMessage());
+            System.err.println("ERROR CRÍTICO: " + e.getMessage());
         }
     }
 }
