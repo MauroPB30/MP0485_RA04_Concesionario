@@ -23,6 +23,7 @@ public class Concesionario {
         }
         vehiculos.add(v);
         FicheroVehiculos.guardar(vehiculos);
+        System.out.println("Vehiculo añadido full.");
         return true;
     }
 
