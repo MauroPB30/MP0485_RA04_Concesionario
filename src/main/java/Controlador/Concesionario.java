@@ -7,6 +7,7 @@ package Controlador;
 import Modelo.Vehiculo;
 import java.util.ArrayList;
 import Persistencia.FicheroVehiculos;
+import java.util.List;
 
 /**
  *
@@ -14,36 +15,39 @@ import Persistencia.FicheroVehiculos;
  */
 public class Concesionario {
 
-    private static ArrayList<Vehiculo> vehiculos = new ArrayList<>();
+    private ArrayList<Vehiculo> vehiculos = new ArrayList<>();
 
     public boolean insertarVehiculo(Vehiculo v) {
-        if (findVh("") != null) {
-            return false;
+        if (buscarVehiculo(v.getMatricula()) != null) {
+            return false; 
         }
-        vehiculos.add(new Vehiculo("", "", "", 0, ""));
+        vehiculos.add(v);
+        FicheroVehiculos.guardar(vehiculos);
         return true;
-
     }
 
     public Vehiculo buscarVehiculo(String matricula) {
-        return null;
-    }
-
-    public void eliminarVehiculo(String matricula) {
-
-    }
-
-    public void listarVehiculos(ArrayList<Vehiculo> vehiculos) {
-
-    }
-
-    public Vehiculo findVh(String matr) {
-        for (Vehiculo vehiculo : vehiculos) {
-            if (vehiculo.getMatricula().equalsIgnoreCase(matr)) {
-                return vehiculo;
+        for (Vehiculo v : vehiculos) {
+            if (v.getMatricula().equalsIgnoreCase(matricula)) {
+                return v;
             }
         }
         return null;
     }
+
+    public void eliminarVehiculo(String matricula) {
+        Vehiculo v = buscarVehiculo(matricula);
+        if (v != null) {
+            vehiculos.remove(v);
+            FicheroVehiculos.guardar(vehiculos);
+        }
+
+    }
+
+    public List<Vehiculo> listarVehiculos() {
+        return vehiculos;
+
+    }
+
 
 }
